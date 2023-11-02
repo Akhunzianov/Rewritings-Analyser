@@ -1,5 +1,11 @@
 import json
 import re
+import pymorphy2
+from wiki_ru_wordnet import WikiWordnet
+
+wikiwordnet = WikiWordnet()
+# Инициализируем анализатор pymorphy2
+morph = pymorphy2.MorphAnalyzer()
 
 
 def substitute_difference(letter1, letter2):
@@ -44,6 +50,44 @@ def is_it_rewriting(first_listed_text_sample, second_listed_text_sample):
     return False
 
 
+def normal_form(word):
+    word_info = morph.parse(word)[0]
+    return word_info.normal_form
+
+
+def find_synonyms(word):
+    word_info = morph.parse(word)[0]
+    normal_form = word_info.normal_form
+    synonyms = [word_info.word]
+    synsets = wikiwordnet.get_synsets(normal_form)
+    for i in range(len(synsets)):
+        x = synsets[i]
+        for w in x.get_words():
+            synonyms.append(w.lemma())
+    return synonyms
+
+
+def is_it_rewriting2(first_listed_text_sample, second_listed_text_sample):
+    percentage_of_synsets_to_be_rewriting = 20
+    first_listed_text_sample_length = len(first_listed_text_sample)
+    second_listed_text_sample_length = len(second_listed_text_sample)
+    synsets = []
+    cnt_synsets = 0
+    for i in range(first_listed_text_sample_length):
+        synsets.append(find_synonyms(first_listed_text_sample[i]))
+    synonyms = [element for row in synsets for element in row]
+    for j in range(second_listed_text_sample_length):
+        if normal_form(second_listed_text_sample[j]) in synonyms:
+            cnt_synsets += 1
+    if (cnt_synsets / max(first_listed_text_sample_length, second_listed_text_sample_length)) > \
+            percentage_of_synsets_to_be_rewriting:
+        return True
+    else:
+        return False
+
+
+
+
 def find_rewriting(data_dictionary):
     length_data = len(data_dictionary)
     rewriting_dictionary = {i: [] for i in range(1, length_data + 1)}
@@ -51,7 +95,8 @@ def find_rewriting(data_dictionary):
         first_listed_text_sample = data_dictionary[i]
         for j in range(i + 1, length_data + 1):
             second_listed_text_sample = data_dictionary[j]
-            if is_it_rewriting(first_listed_text_sample, second_listed_text_sample):
+            if is_it_rewriting(first_listed_text_sample, second_listed_text_sample) or\
+                    is_it_rewriting2(first_listed_text_sample, second_listed_text_sample):
                 rewriting_dictionary[i] += [j]
     return rewriting_dictionary
 

@@ -1,10 +1,13 @@
 import pymorphy2
 from wiki_ru_wordnet import WikiWordnet
+
 wikiwordnet = WikiWordnet()
 # Инициализируем анализатор pymorphy2
 morph = pymorphy2.MorphAnalyzer()
 # Слово, для которого мы хотим найти синонимы
-word = "хуй"
+word = "банан"
+
+
 # Функция для нахождения синонимов
 def find_synonyms(word):
     word_info = morph.parse(word)[0]
@@ -23,9 +26,15 @@ def find_synonyms(word):
 
     return synonyms
 
+
 synonyms = find_synonyms(word)
 if synonyms:
-    print(f"Синонимы слова '{word}': {', '.join(synonyms)}")
+    print(synonyms)
 else:
     print(f"Не удалось найти синонимы для слова '{word}'")
+
+
+def normal_form(word):
+    word_info = morph.parse(word)[0]
+    return word_info.normal_form
 
