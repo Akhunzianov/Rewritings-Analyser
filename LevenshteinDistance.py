@@ -98,7 +98,7 @@ def create_rewritings_file(rewriting_dictionary, full_data_dictionary):
                 used_text_samples_ids.add(el)
             data.append(current_set)
 
-    with open("rewritings.json", "w") as json_file:
+    with open("rewritings_levenshtein_distance.json", "w") as json_file:
         json.dump(data, json_file, ensure_ascii=False, indent=2)
 
 
