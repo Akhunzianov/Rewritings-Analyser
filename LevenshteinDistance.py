@@ -84,7 +84,7 @@ def unpack_json(file):
         return data_dictionary
 
 
-def create_rewritings_file(rewriting_dictionary, full_data_dictionary):
+def create_rewritings_file(rewriting_dictionary, full_data_dictionary, mode='ld'):
     data = []
     length = len(rewriting_dictionary)
     used_text_samples_ids = set()
@@ -97,8 +97,10 @@ def create_rewritings_file(rewriting_dictionary, full_data_dictionary):
                 current_set.append({"id": el, "text": full_data_dictionary[el]})
                 used_text_samples_ids.add(el)
             data.append(current_set)
-
-    with open("rewritings_levenshtein_distance.json", "w") as json_file:
+    filename = "rewritings_levenshtein_distance.json"
+    if mode == 'ji':
+        filename = "rewritings_jaccard_index.json"
+    with open(filename, "w") as json_file:
         json.dump(data, json_file, ensure_ascii=False, indent=2)
 
 
