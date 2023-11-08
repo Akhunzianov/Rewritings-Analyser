@@ -4,6 +4,8 @@
 ## Подход 1: Расстояние Левенштейна
 Данный алгоритм реализован Ахунзяновым Ренатом. В реализации используются файлы [`LevenshteinDistance.py`](https://github.com/Akhunzianov/Rewritings-Analyser/blob/2f4faad08bca08cec0d6d5a58ff7d95ccf28e739/LevenshteinDistance.py), [`sample.json`](https://github.com/Akhunzianov/Rewritings-Analyser/blob/2f4faad08bca08cec0d6d5a58ff7d95ccf28e739/sample.json), [`rewritings_levenshtein.json`](https://github.com/Akhunzianov/Rewritings-Analyser/blob/2f4faad08bca08cec0d6d5a58ff7d95ccf28e739/rewritings_levenshtein_distance.json)
 
+Результат работы данного метода записан в файле [`rewritings_levenshtein.json`](https://github.com/Akhunzianov/Rewritings-Analyser/blob/2f4faad08bca08cec0d6d5a58ff7d95ccf28e739/rewritings_levenshtein_distance.json)
+
 #### Рассмотрим реализацию подробнее:
 
 Метод `main` не имеет реализации какого-либо процесса, а просто поочередно вызывает функции, реализующие алгоритм 
