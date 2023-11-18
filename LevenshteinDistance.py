@@ -99,7 +99,7 @@ def create_rewritings_file(rewriting_dictionary, full_data_dictionary, mode='ld'
             data.append(current_set)
     filename = "rewritings_levenshtein_distance.json"
     if mode == 'ji':
-        filename = "rewritings_jaccard_index.json"
+        filename = "rewritings_cosine_similarity.json"
     with open(filename, "w") as json_file:
         json.dump(data, json_file, ensure_ascii=False, indent=2)
 
