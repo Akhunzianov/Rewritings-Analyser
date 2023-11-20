@@ -57,7 +57,7 @@ def find_rewriting(data_dictionary):
 
 
 def delete_short_words_and_punctuation(text_sample):
-    no_punctuation_text = re.sub(r'[?,.!:;\"\'1234567890-]', '', text_sample)
+    no_punctuation_text = re.sub(r'[?,.!:;\"\'1234567890-]', '', text_sample).lower()
     text_list = no_punctuation_text.split()
     for i in range(len(text_list) - 1, -1, -1):
         if len(text_list[i]) <= 2:  # можно менять резмер коротких слов
@@ -84,7 +84,7 @@ def unpack_json(file):
         return data_dictionary
 
 
-def create_rewritings_file(rewriting_dictionary, full_data_dictionary):
+def create_rewritings_file(rewriting_dictionary, full_data_dictionary, mode='ld'):
     data = []
     length = len(rewriting_dictionary)
     used_text_samples_ids = set()
@@ -97,9 +97,12 @@ def create_rewritings_file(rewriting_dictionary, full_data_dictionary):
                 current_set.append({"id": el, "text": full_data_dictionary[el]})
                 used_text_samples_ids.add(el)
             data.append(current_set)
-
-    with open("rewritings_levenshtein_distance.json", "w") as json_file:
-        json.dump(data, json_file, ensure_ascii=False, indent=2)
+    if mode == 'ld':
+        with open("rewritings_levenshtein_distance.json", "w") as json_file:
+            json.dump(data, json_file, ensure_ascii=False, indent=2)
+    if mode == "tf":
+        with open("rewritings_tf-idf.json", "w") as json_file:
+            json.dump(data, json_file, ensure_ascii=False, indent=2)
 
 
 def main():
