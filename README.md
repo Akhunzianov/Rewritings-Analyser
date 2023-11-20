@@ -37,4 +37,5 @@ def text_to_vector(text):
         else:
             return False
 ```
-Данная функция считает косинусное сходство при помощи формулы ![image](https://github.com/Akhunzianov/Rewritings-Analyser/assets/76743076/9946a7f5-c6e5-4996-bd60-683ebc19453c)
+Данная функция считает косинусное сходство при помощи формулы 
+                                                              ![image](https://github.com/Akhunzianov/Rewritings-Analyser/assets/76743076/9946a7f5-c6e5-4996-bd60-683ebc19453c)
