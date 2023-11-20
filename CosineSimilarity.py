@@ -23,10 +23,10 @@ def get_cosine(first_listed_text_sample, second_listed_text_sample):
         return False
     else:
         percentage_for_text_to_be_rewriting = float(numerator) / denominator
-    if percentage_for_text_to_be_rewriting > 0.75:
-        return True
-    else:
-        return False
+        if percentage_for_text_to_be_rewriting > 0.75:
+            return True
+        else:
+            return False
 
 
 def text_to_vector(text):
