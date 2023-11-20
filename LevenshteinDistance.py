@@ -97,12 +97,11 @@ def create_rewritings_file(rewriting_dictionary, full_data_dictionary, mode='ld'
                 current_set.append({"id": el, "text": full_data_dictionary[el]})
                 used_text_samples_ids.add(el)
             data.append(current_set)
-    if mode == 'ld':
-        with open("rewritings_levenshtein_distance.json", "w") as json_file:
-            json.dump(data, json_file, ensure_ascii=False, indent=2)
+    filename = "rewritings_levenshtein_distance.json"
     if mode == "tf":
-        with open("rewritings_tf-idf.json", "w") as json_file:
-            json.dump(data, json_file, ensure_ascii=False, indent=2)
+        filename = "rewritings_tf-idf.json"
+    with open(filename, "w") as json_file:
+        json.dump(data, json_file, ensure_ascii=False, indent=2)
 
 
 def main():
